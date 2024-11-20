@@ -1,31 +1,30 @@
-#Requires AutoHotkey v2.0
 #SingleInstance Force
 SetWorkingDir A_ScriptDir
-CoordMode "Mouse", "Screen"
+CoordMode "Mouse", "Client"
 
 ; Configure for smoother mouse movement
 SetDefaultMouseSpeed 2
 
 ; Coordinates for buttons
-BetAllX := 76
-BetAllY := 353
-HalfX := 117
-HalfY := 285
-MaxBallsX := 69
-MaxBallsY := 316
-RollX := 130
-RollY := 408
+BetAllX := 66
+BetAllY := 322
+HalfX := 115
+HalfY := 254
+MaxBallsX := 65
+MaxBallsY := 286
+RollX := 115
+RollY := 381
 
 ; Function to add random small variation to coordinates
 RandomMove(baseX, baseY) {
-    offsetX := 0  ; You can adjust the range of randomness here
-    offsetY := 0
+    offsetX := Random(-1, 1)
+    offsetY := Random(-1, 1)
     MouseMove baseX + offsetX, baseY + offsetY
 }
 
 ; Function to add random delay
-RandomDelay(baseDelay := 100) {
-    extraDelay := Random(0, 100)
+RandomDelay(baseDelay := 500) {
+    extraDelay := Random(0, 200)
     Sleep baseDelay + extraDelay
 }
 
@@ -34,13 +33,6 @@ ActivateRoblox() {
     if (WinExist("ahk_exe RobloxPlayerBeta.exe")) {
         WinActivate
         Sleep 100  ; Give window time to activate
-        WinWaitActive, ahk_exe RobloxPlayerBeta.exe , 2  ; Added space after window title
-        if ErrorLevel {
-            MsgBox, Could not activate Roblox window.
-            return false
-        }
-        WinGet, hWnd, ID, A  ; Get the window handle
-        window.focus(hWnd) ; Focus the window using the handle
         return true
     }
     return false
@@ -59,6 +51,12 @@ F1::{
         ; Click Bet All
         RandomMove(BetAllX, BetAllY)
         Click
+
+        RandomMove(BetAllX, BetAllY)
+        Click
+        RandomMove(BetAllX, BetAllY)
+        Click
+
         RandomDelay()
 
         ; Click Half 6 times
@@ -71,15 +69,21 @@ F1::{
         ; Click Max Balls
         RandomMove(MaxBallsX, MaxBallsY)
         Click
+
+        RandomMove(MaxBallsX, MaxBallsY)
+        Click
+
         RandomDelay()
 
         ; Click Roll
         RandomMove(RollX, RollY)
         Click
-        RandomDelay()
+
+        RandomMove(RollX, RollY)
+        Click
 
         ; Wait for game completion (16-18 seconds)
-        waitTime := Random(16000, 18000)
+        waitTime := Random(20000, 22000)
         Sleep waitTime
 
         ; Check for F2 press
