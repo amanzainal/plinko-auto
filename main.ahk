@@ -23,8 +23,8 @@ RandomMove(baseX, baseY) {
 }
 
 ; Function to add random delay
-RandomDelay(baseDelay := 500) {
-    extraDelay := Random(0, 200)
+RandomDelay(baseDelay := 100) {
+    extraDelay := Random(0, 100)
     Sleep baseDelay + extraDelay
 }
 
@@ -51,10 +51,7 @@ F1::{
         ; Click Bet All
         RandomMove(BetAllX, BetAllY)
         Click
-
-        RandomMove(BetAllX, BetAllY)
         Click
-        RandomMove(BetAllX, BetAllY)
         Click
 
         RandomDelay()
@@ -69,21 +66,23 @@ F1::{
         ; Click Max Balls
         RandomMove(MaxBallsX, MaxBallsY)
         Click
-
+        RandomDelay()
         RandomMove(MaxBallsX, MaxBallsY)
         Click
+        RandomDelay()
+        RandomMove(MaxBallsX, MaxBallsY)
+        Click
+
 
         RandomDelay()
 
         ; Click Roll
         RandomMove(RollX, RollY)
         Click
-
-        RandomMove(RollX, RollY)
         Click
 
         ; Wait for game completion (16-18 seconds)
-        waitTime := Random(20000, 22000)
+        waitTime := Random(15000, 15001)
         Sleep waitTime
 
         ; Check for F2 press
